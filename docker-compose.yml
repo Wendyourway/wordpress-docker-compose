@@ -47,8 +47,6 @@ services:
       MYSQL_USER: "${DB_USERNAME}"
       MYSQL_PASSWORD: "${DB_PASSWORD}"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-    ports:
-      - "${FORWARD_MYSQL_PORT:-3306}:3306"
     volumes:
       - ./wp-data:/docker-entrypoint-initdb.d
       - "mysql_volume:/var/lib/mysql"
@@ -75,6 +73,8 @@ services:
       PMA_USER: "${DB_USERNAME}"
       PMA_PASSWORD: "${DB_PASSWORD}"
       MYSQL_PASSWORD: "${DB_PASSWORD}"
+      PMA_USER: "${PMA_USER}"
+      PMA_PASSWORD: "${PMA_PASSWORD}"
     depends_on:
       - "mysql"
     networks:
