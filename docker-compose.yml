@@ -5,7 +5,7 @@ services:
     container_name: wp_host
     image: wordpress:latest # https://hub.docker.com/_/wordpress/
     ports:
-      - ${HOST}:${HTTP_PORT:-80}:80 # change HOST if required
+      - ${HTTP_PORT:-80}:80 # change HOST if required
     volumes:
       - ./config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
       - ./wp-app:/var/www/html # Full wordpress project
