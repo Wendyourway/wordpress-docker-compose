@@ -2,7 +2,6 @@
 version: "3.5"
 services:
   wp:
-    container_name: wp_host
     image: wordpress:latest # https://hub.docker.com/_/wordpress/
     ports:
       - ${HTTP_PORT:-80}:80 # change HOST if required
@@ -23,7 +22,6 @@ services:
     networks:
       - wp_network
   cli:
-    container_name: wp_cli
     image: wordpress:cli
     volumes:
       - ./config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
@@ -39,7 +37,6 @@ services:
     networks:
       - wp_network
   mysql:
-    container_name: "wp_mysql"
     image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
@@ -63,7 +60,6 @@ services:
       interval: 10s
       retries: 10
   phpmyadmin:
-    container_name: "wp_phpmyadmin"
     image: phpmyadmin
     ports:
       - "${FORWARD_PHPMYADMIN_PORT:-8080}:80"
