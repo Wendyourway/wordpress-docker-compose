@@ -8,8 +8,6 @@ services:
     volumes:
       - ./config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
       - ./wp-app:/var/www/html # Full wordpress project
-      #- ./plugin-name/trunk/:/var/www/html/wp-content/plugins/plugin-name # Plugin development
-      #- ./theme-name/trunk/:/var/www/html/wp-content/themes/theme-name # Theme development
     environment:
       WORDPRESS_DB_HOST: mysql
       WORDPRESS_DB_NAME: "${DB_DATABASE}"
@@ -38,6 +36,9 @@ services:
       - wp_network
   mysql:
     image: mysql
+    privileged: false
+    security_opt:
+      - no-new-privileges:true
     environment:
       MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
       MYSQL_DATABASE: "${DB_DATABASE}"  
@@ -61,6 +62,9 @@ services:
       retries: 10
   phpmyadmin:
     image: phpmyadmin
+    privileged: false
+    security_opt:
+      - no-new-privileges:true
     ports:
       - "${FORWARD_PHPMYADMIN_PORT:-8080}:80"
     environment:
@@ -69,8 +73,6 @@ services:
       PMA_USER: "${DB_USERNAME}"
       PMA_PASSWORD: "${DB_PASSWORD}"
       MYSQL_PASSWORD: "${DB_PASSWORD}"
-      PMA_USER: "${PMA_USER}"
-      PMA_PASSWORD: "${PMA_PASSWORD}"
     depends_on:
       - "mysql"
     networks:
