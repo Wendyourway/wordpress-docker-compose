@@ -53,6 +53,8 @@ services:
       '--character-set-server=utf8mb4',
       '--collation-server=utf8mb4_unicode_ci'
     ]
+    ports: 
+      - ${FORWARD_MYSQL_PORT:-3306}:3306
     networks:
       - "wp_network"
     healthcheck:
